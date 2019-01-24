@@ -1,0 +1,308 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: ASUS
+  Date: 2018/9/7
+  Time: 15:00
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <title>篮球场地预订页</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="sendTab">
+    <table cellpadding="0" cellspacing="5" border="0" class="tit">
+        <tr>
+            <td><span class="sp1"></span></td>
+            <td>可预订</td>
+            <td><span class="sp2"></span></td>
+            <td>已预订</td>
+            <td><span class="sp3"></span></td>
+            <td>您选择的场次</td>
+            <td><span class="sp4"></span></td>
+            <td>不可预订的场次</td>
+        </tr>
+    </table>
+    <div class="tag">
+        <a class="floatleft ahover" id="num1">9-7 周五</a><span id="cunm1" style="display:none;">1</span>
+        <script>
+            jQuery("#num1").click(function(){
+                var cunm = jQuery('#cunm1').text();
+                var div = document.getElementById("prolist_con");
+                jQuery("#num1").siblings().removeClass("ahover");
+                jQuery("#num1").addClass("ahover");
+                div.innerHTML = "<iframe id='iframepage' name='iframepage' onLoad='iFrameHeight()' frameborder='0' scrolling='no' width='630' height='239' src='ifr.asp?cid=5&qr=" + cunm + "'></iframe>"
+            })
+        </script>
+        <a class="floatleft " id="num2">9-8 周六</a><span id="cunm2" style="display:none;">2</span>
+        <script>
+            jQuery("#num2").click(function(){
+                var cunm = jQuery('#cunm2').text();
+                var div = document.getElementById("prolist_con");
+                jQuery("#num2").siblings().removeClass("ahover");
+                jQuery("#num2").addClass("ahover");
+                div.innerHTML = "<iframe id='iframepage' name='iframepage' onLoad='iFrameHeight()' frameborder='0' scrolling='no' width='630' height='239' src='ifr.asp?cid=5&qr=" + cunm + "'></iframe>"
+            })
+        </script>
+        <a class="floatleft " id="num3">9-9 周日</a><span id="cunm3" style="display:none;">3</span>
+        <script>
+            jQuery("#num3").click(function(){
+                var cunm = jQuery('#cunm3').text();
+                var div = document.getElementById("prolist_con");
+                jQuery("#num3").siblings().removeClass("ahover");
+                jQuery("#num3").addClass("ahover");
+                div.innerHTML = "<iframe id='iframepage' name='iframepage' onLoad='iFrameHeight()' frameborder='0' scrolling='no' width='630' height='239' src='ifr.asp?cid=5&qr=" + cunm + "'></iframe>"
+            })
+        </script>
+        <span id="cunm4" style="display:none;">4</span>
+        <script>
+            jQuery("#num4").click(function(){
+                var cunm = jQuery('#cunm4').text();
+                var div = document.getElementById("prolist_con");
+                jQuery("#num4").siblings().removeClass("ahover");
+                jQuery("#num4").addClass("ahover");
+                div.innerHTML = "<iframe id='iframepage' name='iframepage' onLoad='iFrameHeight()' frameborder='0' scrolling='no' width='630' height='239' src='ifr.asp?cid=5&qr=" + cunm + "'></iframe>"
+            })
+        </script>
+        <a class="floatleft " id="num5">9-11 周二</a><span id="cunm5" style="display:none;">5</span>
+        <script>
+            jQuery("#num5").click(function(){
+                var cunm = jQuery('#cunm5').text();
+                var div = document.getElementById("prolist_con");
+                jQuery("#num5").siblings().removeClass("ahover");
+                jQuery("#num5").addClass("ahover");
+                div.innerHTML = "<iframe id='iframepage' name='iframepage' onLoad='iFrameHeight()' frameborder='0' scrolling='no' width='630' height='239' src='ifr.asp?cid=5&qr=" + cunm + "'></iframe>"
+            })
+        </script>
+        <a class="floatleft " id="num6">9-12 周三</a><span id="cunm6" style="display:none;">6</span>
+        <script>
+            jQuery("#num6").click(function(){
+                var cunm = jQuery('#cunm6').text();
+                var div = document.getElementById("prolist_con");
+                jQuery("#num6").siblings().removeClass("ahover");
+                jQuery("#num6").addClass("ahover");
+                div.innerHTML = "<iframe id='iframepage' name='iframepage' onLoad='iFrameHeight()' frameborder='0' scrolling='no' width='630' height='239' src='ifr.asp?cid=5&qr=" + cunm + "'></iframe>"
+            })
+        </script>
+        <a class="floatleft " id="num7">9-13 周四</a><span id="cunm7" style="display:none;">7</span>
+        <script>
+            jQuery("#num7").click(function(){
+                var cunm = jQuery('#cunm7').text();
+                var div = document.getElementById("prolist_con");
+                jQuery("#num7").siblings().removeClass("ahover");
+                jQuery("#num7").addClass("ahover");
+                div.innerHTML = "<iframe id='iframepage' name='iframepage' onLoad='iFrameHeight()' frameborder='0' scrolling='no' width='630' height='239' src='ifr.asp?cid=5&qr=" + cunm + "'></iframe>"
+            })
+        </script>
+    </div>
+    <%--<div style=" float:left; width:630px; background:url(../11400/Images/loading.gif) no-repeat center;" id="prolist_con">--%>
+        <%--<iframe id="iframepage" name="iframepage" frameBorder="0" scrolling="no" width="630" onLoad="iFrameHeight()" src="ifr.asp?cid=5&qr=1"></iframe>--%>
+    <%--</div>--%>
+
+
+
+
+    <style>
+        .showtab{ width:630px; height:auto!important; background:#FFF; min-height:210px; height:210px; border-left:solid 1px #e4e4e4; border-top:solid 1px #e4e4e4; margin-top:10px; display:none;}
+        .showtab dt,.Box5 .sendTab .showtab dd{ height:30px;}
+        .showtab span{ width:82px; height:23px; background:#ebebeb; border:solid 1px #ebebeb; margin:0 6px 5px 0; line-height:23px; text-align:center;}
+        .showtab .sp0{ background:antiquewhite repeat-x; cursor:pointer;}
+        .showtab .sp1{ background:#47a137; border-color:#176908; cursor:pointer;}
+        .showtab .sp2{ background:#ef581f; border-color:#ac2b0c; cursor:auto;}
+        .showtab .sp3{ background:#999999; border-color:#666666; cursor:auto;}
+        .showtab .but{ background:black no-repeat; width:76px; height:23px; text-align:center; color:#fff; line-height:23px; border:0; cursor:pointer;}
+        .showfont{ width:280px; height:210px; line-height:200%; margin-top:10px; position:relative;}
+        .showfont .notab{ width:82px; height:23px; display:block; background:#eaf6fd; border:solid 1px #b4d3eb; position:absolute; left:53px; top:-2px;}
+    </style>
+
+    <dl class="floatleft showtab" style="display:block;">
+        <form action="#" method="post" name="form1">
+            <input type="hidden" name="act" value="send" />
+            <input type="hidden" name="cxpid" value="5" />
+            <input type="hidden" name="cxpdate" value="2018/9/7" />
+            <dt>
+                <span class="floatleft">场地/时间</span>
+                <span class="floatleft">9-11</span>
+                <span class="floatleft">11-13</span>
+                <span class="floatleft">13-15</span>
+                <span class="floatleft">15-17</span>
+                <span class="floatleft">17-19</span>
+                <span class="floatleft">19-21</span>
+            </dt>
+
+            <dd>
+
+                <span class="floatleft">1 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_1" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_1" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_1" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_1" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_1" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_1" value="1" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">2 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_2" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_2" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_2" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_2" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_2" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_2" value="1" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">3 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_3" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_3" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_3" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_3" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_3" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_3" value="1" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">4 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_4" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_4" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_4" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_4" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_4" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_4" value="1" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">5 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_5" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_5" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_5" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_5" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_5" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_5" value="1" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">6 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_6" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_6" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_6" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_6" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_6" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_6" value="1" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">7 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_7" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_7" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_7" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_7" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_7" value="1" /></span>
+                <span class="floatleft sp0 sp3"><input type="hidden" name="cxptime_7" value="0" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">8 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_8" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_8" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_8" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_8" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_8" value="1" /></span>
+                <span class="floatleft sp0 sp3"><input type="hidden" name="cxptime_8" value="0" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">9 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_9" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_9" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_9" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_9" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_9" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_9" value="1" /></span>
+            </dd>
+
+            <dd>
+
+                <span class="floatleft">10 号场</span>
+
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_10" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_10" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_10" value="1" /></span>
+                <span class="floatleft sp0"><input type="hidden" name="cxptime_10" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_10" value="1" /></span>
+                <span class="floatleft sp0 sp2"><input type="hidden" name="cxptime_10" value="1" /></span>
+            </dd>
+
+            <dd style="text-align:center; height:50px; line-height:50px;"><input type="submit" value="提交预订" class="but" /></dd>
+        </form>
+    </dl>
+
+
+    <script type="text/javascript">
+        //日期切换
+        jQuery(".tag").find("a").click(function(){
+            jQuery(".sendTab").find("dl").eq(jQuery(this).index()).show().siblings("dl").hide()
+            jQuery(this).addClass("ahover").siblings().removeClass("ahover")
+        })
+
+        //选择、取消场地(多选)
+        //					var selYD=0
+        //					var maxselect=5
+        //					jQuery(".showtab .sp0").click(function(){
+        //						if(jQuery(this).hasClass("sp2")||jQuery(this).hasClass("sp3")){
+        //
+        //						}else{
+        //							if(jQuery(this).hasClass("sp1")){
+        //								jQuery(this).removeClass("sp1")
+        //								jQuery(this).find("input").val(1)
+        //								selYD=selYD-1
+        //							}else{
+        //								if(selYD>=maxselect){
+        //									alert("系统限制每人一次性最多预订 "+maxselect+" 场 ！");
+        //									return false;
+        //								}
+        //								jQuery(this).addClass("sp1")
+        //								jQuery(this).find("input").val(2)
+        //								selYD=selYD+1
+        //							}
+        //						}
+        //					})
+
+        //选择、取消场地(单选)
+        jQuery(".showtab .sp0").click(function(){
+            if(jQuery(this).hasClass("sp2")||jQuery(this).hasClass("sp3")){
+
+            }else{
+                jQuery(".showtab").find("span").removeClass("sp1")
+                jQuery(".sp0").find("input").val(1)
+                jQuery(this).addClass("sp1")
+                jQuery(this).find("input").val(2)
+            }
+        })
+    </script>
+
+</div>
+</body>
+</html>
