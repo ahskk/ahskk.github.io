@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace对应接口文件的全限定名-->
+<!--具体来说就是mapper要实现哪个.java文件功能-->
+<mapper namespace="com.hsk.dao.IBookingDao">
+    <resultMap id="myMap" type="com.hsk.dto.Booking">
+        <result property="order_id" column="order_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="realname" column="realname"/>
+        <result property="phone" column="phone"/>
+        <result property="category_name" column="category_name"/>
+        <result property="court_name" column="court_name"/>
+        <result property="create_date" column="create_date"/>
+        <result property="booking_date" column="booking_date"/>
+        <result property="booking_time" column="booking_time"/>
+        <result property="booking_price" column="booking_price"/>
+    </resultMap>
+
+    <sql id="fields">
+        *
+    </sql>
+    <sql id="tablename">
+        t_booking
+    </sql>
+    <!--要实现的具体功能用mybatis的标签来标注-->
+    <!--功能名称或方法名称，由id指定-->
+    <!--Booking findOneById(String id)-->
+    <!--实现按ID精确查询功能-->
+
+    <!--select order_id,user_id,realname,phone,category_name,court_name,
+    create_date,booking_date,booking_time,booking_price from booking where order_id=#{order_id}-->
+    <select id="findOneById" parameterType="java.lang.String" resultMap="myMap">
+        SELECT
+        <include refid="fields"/>
+        FROM
+        <include refid="tablename"/>
+        WHERE order_id = #{order_id}
+    </select>
+
+    <select id="findOneByProp" parameterType="java.util.Map" resultMap="myMap">
+        SELECT
+        <include refid="fields"/>
+        FROM
+        <include refid="tablename"/>
+        <where>
+            <if test="order_id!=null">
+                order_id=#{order_id}
+            </if>
+            <if test="user_id!=null">
+                user_id=#{user_id}
+            </if>
+            <if test="realname!=null">
+                realname=#{realname}
+            </if>
+            <if test="phone!=null">
+                phone=#{phone}
+            </if>
+            <if test="category_name!=null">
+                category_name=#{category_name}
+            </if>
+            <if test="court_name!=null">
+                court_name=#{court_name}
+            </if>
+            <if test="beginDate!=null">
+                create_date >=#{beginDate}
+            </if>
+            <if test="endDate!=null">
+                #{endDate}>=create_date
+            </if>
+            <if test="beginBookingDate!=null">
+                booking_date >=#{beginBookingDate}
+            </if>
+            <if test="endBookingDate!=null">
+                #{endBookingDate}>=booking_date
+            </if>
+            <if test="booking_time!=null">
+                booking_time=#{booking_time}
+            </if>
+            <if test="booking_price!=null">
+                booking_price=#{booking_price}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByProp" parameterType="java.util.Map" resultMap="myMap">
+        SELECT
+        <include refid="fields"/>
+        FROM
+        <include refid="tablename"/>
+        <where>
+            <if test="order_id!=null">
+                order_id LIKE concat(concat('%',#{order_id}),'%')
+            </if>
+            <if test="user_id!=null">
+                AND user_id LIKE concat(concat('%',#{user_id}),'%')
+            </if>
+            <if test="realname!=null">
+                AND realname LIKE concat(concat('%',#{realname}),'%')
+            </if>
+            <if test="phone!=null">
+                AND phone LIKE concat(concat('%',#{phone}),'%')
+            </if>
+            <if test="category_name!=null">
+                AND category_name LIKE concat(concat('%',#{category_name}),'%')
+            </if>
+            <if test="court_name!=null">
+                AND court_name LIKE concat(concat('%',#{court_name}),'%')
+            </if>
+            <if test="beginDate!=null">
+                and create_date >=#{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and #{endDate}>=create_date
+            </if>
+            <if test="beginBookingDate!=null">
+                and booking_date >=#{beginBookingDate}
+            </if>
+            <if test="endBookingDate!=null">
+                and #{endBookingDate}>=booking_date
+            </if>
+            <if test="bookingDate!=null">
+                and booking_date=#{bookingDate}
+            </if>
+            <if test="booking_time!=null">
+                AND booking_time LIKE concat(concat('%',#{booking_time}),'%')
+            </if>
+            <if test="booking_price!=null">
+                AND booking_price LIKE concat(concat('%',#{booking_price}),'%')
+            </if>
+        </where>
+    </select>
+
+    <!--boolean add(Booking t)-->
+    <!--insert into booking(user_id,phone) values(?,?)-->
+    <insert id="add" parameterType="com.hsk.dto.Booking">
+        INSERT INTO
+        <include refid="tablename"/>
+
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user_id!=null">
+                user_id,
+            </if>
+            <if test="realname!=null">
+                realname,
+            </if>
+            <if test="phone!=null">
+                phone,
+            </if>
+            <if test="category_name!=null">
+                category_name,
+            </if>
+            <if test="court_name!=null">
+                court_name,
+            </if>
+            <if test="booking_date!=null">
+                booking_date,
+            </if>
+            <if test="booking_time!=null">
+                booking_time,
+            </if>
+            <if test="booking_price!=null">
+                booking_price,
+            </if>
+
+        </trim>
+
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="user_id!=null">
+                #{user_id},
+            </if>
+            <if test="realname!=null">
+                #{realname},
+            </if>
+            <if test="phone!=null">
+                #{phone},
+            </if>
+            <if test="category_name!=null">
+                #{category_name},
+            </if>
+            <if test="court_name!=null">
+                #{court_name},
+            </if>
+            <if test="booking_date!=null">
+                #{booking_date},
+            </if>
+            <if test="booking_time!=null">
+                #{booking_time},
+            </if>
+            <if test="booking_price!=null">
+                #{booking_price},
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改功能-->
+    <!--boolean update(T t);-->
+    <!--update booking set user_id=? where order_id=?-->
+    <update id="update" parameterType="com.hsk.dto.Booking">
+        UPDATE
+        <include refid="tablename"/>
+        <set>
+            <if test="user_id!=null">
+                user_id= #{user_id},
+            </if>
+            <if test="realname!=null">
+                realname= #{realname},
+            </if>
+            <if test="phone!=null">
+                phone= #{phone},
+            </if>
+            <if test="category_name!=null">
+                category_name= #{category_name},
+            </if>
+            <if test="court_name!=null">
+                court_name= #{court_name},
+            </if>
+            <if test="booking_date!=null">
+                booking_date= #{booking_date},
+            </if>
+            <if test="booking_time!=null">
+                booking_time= #{booking_time},
+            </if>
+            <if test="booking_price!=null">
+                booking_price= #{booking_price},
+            </if>
+        </set>
+        WHERE order_id=#{order_id}
+    </update>
+
+    <!--删除功能-->
+    <!--boolean delete(T t);-->
+    <!--delete t_booking where order_id=?-->
+    <delete id="delete" parameterType="com.hsk.dto.Booking">
+        DELETE
+        FROM
+        <include refid="tablename"/>
+        WHERE order_id=#{order_id}
+    </delete>
+</mapper>

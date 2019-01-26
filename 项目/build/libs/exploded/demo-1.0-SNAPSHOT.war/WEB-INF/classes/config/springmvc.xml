@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd ">
+    <!--springmvc的扫描包，识别@Controller,生成bean-->
+    <context:component-scan base-package="com.hsk.controller"/>
+    <!--注解驱动配置-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+            </bean>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter" >
+            <property name = "supportedMediaTypes">
+                <list>
+                    <value>application/json;charset=utf-8</value>
+                    <value>text/html;charset=utf-8</value>
+                    <!-- application 可以在任意 form 表单里面 enctype 属性默认找到 -->
+                    <value>application/x-www-form-urlencoded</value>
+                </list>
+            </property>
+        </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--视图解析器配置-->
+    <bean id="viewResol" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--前缀属性-->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <!--后缀属性-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--文件上传配置-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="10485760000"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+
+    <!--配置静态资源访问映射-->
+    <mvc:default-servlet-handler/>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
+    <mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>
+    <mvc:resources mapping="/images/**" location="/WEB-INF/images/"/>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 拦截所有mvc控制器 -->
+            <!--<mvc:mapping path="/**"/>-->
+            <mvc:mapping path="/*/manage"/>
+            <mvc:mapping path="/manager1/manage_main"/>
+            <!-- mvc:exclude-mapping是另外一种拦截，它可以在你后来的测试中对某个页面进行不拦截，这样就不用在
+                LoginInterceptor的preHandler方法里面获取不拦截的请求uri地址了(优选) -->
+            <!--<mvc:exclude-mapping path="/manager1/login" />-->
+            <bean class="com.hsk.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

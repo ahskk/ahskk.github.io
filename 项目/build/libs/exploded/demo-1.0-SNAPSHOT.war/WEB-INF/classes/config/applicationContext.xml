@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd ">
+<!--自动扫描，注入@Service.@Repository.@Component注解bean，并管理其关联-->
+    <context:component-scan base-package="com.hsk"/>
+    <!--0  引入db.properties配置文件-->
+    <bean id="propertyConfiger"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:config/db.properties"/>
+    </bean>
+    <!--<context:property-placeholder location="classpath:config/db.properties"/>-->
+    <!--1  数据源连接数据库-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+        <!--定义初始连接数-->
+        <property name="initialSize" value="${initialSize}"/>
+        <!--定义最大连接数-->
+        <property name="maxActive" value="${maxActive}"/>
+        <!--定义最小空闲-->
+        <property name="minIdle" value="${minIdle}"/>
+        <!--定义最长等待时间-->
+        <property name="maxWait" value="${maxWait}"/>
+    </bean>
+    <!--2  创建sqlSessionFactory,生成sqlSession-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--2-1数据源信息-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--2-2映射信息-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+    <!--3  扫描dao所在的包，spring会自动查找其下的类-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描dao，生成@Mapper注解的接口bean-->
+        <property name="basePackage" value="com.hsk.dao"/>
+        <!--将接口bean纳入sqlSessionFactory工厂管理-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+    <!--4  配置JDBC事务管理-->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--5  配置基于注解的声明式事务-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <!--&lt;!&ndash;利用默认构造，指定属性值进行bean的生成&ndash;&gt;-->
+    <!--&lt;!&ndash;此种模式要求属性名称正确，且此属性要有setter方法&ndash;&gt;-->
+    <!--<bean id="category1" class="com.hsk.dto.Category">-->
+        <!--<property name="id" value="2023929342347"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;利用自定义构造函数，指定属性值进行bean的生成&ndash;&gt;-->
+    <!--<bean id="category2" class="com.hsk.dto.Category">-->
+        <!--&lt;!&ndash;<constructor-arg name="text" value="零食类" type="java.lang.String"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<constructor-arg name="parent" value="#" type="java.lang.String"/>&ndash;&gt;-->
+        <!--<constructor-arg index="0" value="其它类" type="java.lang.String"/>-->
+        <!--<constructor-arg index="1" value="#" type="java.lang.String"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="category" class="com.hsk.dto.Category">-->
+        <!--<property name="id" value="23"/>-->
+        <!--<property name="text" value="零食类"/>-->
+        <!--<property name="parent" value="#"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="seller" class="com.hsk.dto.Seller">-->
+        <!--<property name="realname" value="良品铺子"/>-->
+        <!--<property name="address" value="广州三环"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;bean的依赖 用ref&ndash;&gt;-->
+    <!--<bean id="goods" class="com.hsk.dto.Goods">-->
+        <!--<property name="category" ref="category"/>-->
+        <!--<property name="seller" ref="seller"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;dao&ndash;&gt;-->
+    <!--<bean id="sellerDaoImpl" class="com.hsk.dao.impl.SellerDaoImpl">-->
+
+    <!--</bean>-->
+    <!--&lt;!&ndash;service&ndash;&gt;-->
+    <!--<bean id="sellerServiceImpl" class="com.hsk.service.impl.SellerServiceImpl">-->
+        <!--<property name="dao" ref="sellerDaoImpl"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;dao&ndash;&gt;-->
+    <!--<bean id="categoryDaoImpl" class="com.hsk.dao.impl.CategoryDaoImpl">-->
+
+    <!--</bean>-->
+    <!--&lt;!&ndash;service&ndash;&gt;-->
+    <!--<bean id="categoryServiceImpl" class="com.hsk.service.impl.CategoryServiceImpl">-->
+        <!--<property name="dao" ref="categoryDaoImpl"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;dao&ndash;&gt;-->
+    <!--<bean id="goodsDaoImpl" class="com.hsk.dao.impl.GoodsDaoImpl">-->
+
+    <!--</bean>-->
+    <!--<bean id="goodsServiceImpl" class="com.hsk.service.impl.GoodsServiceImpl">-->
+        <!--<property name="dao" ref="goodsDaoImpl"/>-->
+    <!--</bean>-->
+
+</beans>

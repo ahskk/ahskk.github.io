@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace对应接口文件的全限定名-->
+<!--具体来说就是mapper要实现哪个.java文件功能-->
+<mapper namespace="com.hsk.dao.IAnnouncementDao">
+    <resultMap id="myMap" type="com.hsk.dto.Announcement">
+        <result property="announcement_id" column="announcement_id"/>
+        <result property="announcement_title" column="announcement_title"/>
+        <result property="announcement_content" column="announcement_content"/>
+        <result property="create_date" column="create_date"/>
+    </resultMap>
+
+    <sql id="fields">
+        *
+    </sql>
+    <sql id="tablename">
+        t_announcement
+    </sql>
+    <!--要实现的具体功能用mybatis的标签来标注-->
+    <!--功能名称或方法名称，由id指定-->
+    <!--Announcement findOneById(String id)-->
+    <!--实现按ID精确查询功能-->
+
+    <!--select announcement_id,announcement_title,create_date from announcement
+    where announcement_id=#{announcement_id}-->
+    <select id="findOneById" parameterType="java.lang.String" resultMap="myMap">
+        SELECT
+        <include refid="fields"/>
+        FROM
+        <include refid="tablename"/>
+        WHERE announcement_id = #{announcement_id}
+    </select>
+
+    <select id="findOneByProp" parameterType="java.util.Map" resultMap="myMap">
+        SELECT
+        <include refid="fields"/>
+        FROM
+        <include refid="tablename"/>
+        <where>
+            <if test="announcement_id!=null">
+                announcement_id=#{announcement_id}
+            </if>
+            <if test="announcement_title!=null">
+                announcement_title=#{announcement_title}
+            </if>
+            <if test="announcement_content!=null">
+                announcement_content=#{announcement_content}
+            </if>
+            <if test="beginDate!=null">
+                create_date >=#{beginDate}
+            </if>
+            <if test="endDate!=null">
+                #{endDate}>=create_date
+            </if>
+        </where>
+    </select>
+
+    <select id="findByProp" parameterType="java.util.Map" resultMap="myMap">
+        SELECT
+        <include refid="fields"/>
+        FROM
+        <include refid="tablename"/>
+        <where>
+            <if test="announcement_id!=null">
+                announcement_id LIKE concat(concat('%',#{announcement_id}),'%')
+            </if>
+            <if test="announcement_title!=null">
+                AND announcement_title LIKE concat(concat('%',#{announcement_title}),'%')
+            </if>
+            <if test="announcement_content!=null">
+                AND announcement_content LIKE concat(concat('%',#{announcement_content}),'%')
+            </if>
+            <if test="beginDate!=null">
+                and create_date >=#{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and #{endDate}>=create_date
+            </if>
+        </where>
+    </select>
+
+    <!--boolean add(Announcement t)-->
+    <!--insert into announcement(announcement_title,announcement_content) values(?,?)-->
+    <insert id="add" parameterType="com.hsk.dto.Announcement">
+        INSERT INTO
+        <include refid="tablename"/>
+
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="announcement_title!=null">
+                announcement_title,
+            </if>
+            <if test="announcement_content!=null">
+                announcement_content,
+            </if>
+        </trim>
+
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="announcement_title!=null">
+                #{announcement_title},
+            </if>
+            <if test="announcement_content!=null">
+                #{announcement_content},
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改功能-->
+    <!--boolean update(T t);-->
+    <!--update announcement set announcement_title=? where announcement_id=?-->
+    <update id="update" parameterType="com.hsk.dto.Announcement">
+        UPDATE
+        <include refid="tablename"/>
+        <set>
+            <if test="announcement_title!=null">
+                announcement_title= #{announcement_title},
+            </if>
+            <if test="announcement_content!=null">
+                announcement_content= #{announcement_content},
+            </if>
+        </set>
+        WHERE announcement_id=#{announcement_id}
+    </update>
+
+    <!--删除功能-->
+    <!--boolean delete(T t);-->
+    <!--delete t_announcement where announcement_id=?-->
+    <delete id="delete" parameterType="com.hsk.dto.Announcement">
+        DELETE
+        FROM
+        <include refid="tablename"/>
+        WHERE announcement_id=#{announcement_id}
+    </delete>
+</mapper>
