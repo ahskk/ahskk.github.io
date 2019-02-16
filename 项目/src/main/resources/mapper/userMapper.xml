@@ -96,7 +96,9 @@
                 and #{endDate}>=regdate
             </if>
         </where>
-
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
     </select>
 
     <!--boolean add(User t)-->
@@ -178,4 +180,22 @@
         WHERE user_id=#{user_id}
     </delete>
 
+    <!--&lt;!&ndash; 根据分页数据start 和size查询数据 &ndash;&gt;-->
+    <!--<select id="findByPage" parameterType="Map" resultMap="myMap">-->
+        <!--select-->
+        <!--<include refid="fields"/>-->
+        <!--from-->
+        <!--<include refid="tablename"/>-->
+        <!--<if test="start!=null and size!=null">-->
+            <!--limit #{start},#{size}-->
+        <!--</if>-->
+    <!--</select>-->
+
+
+    <!-- 查询用户记录总数 -->
+    <select id="selectCount" resultType="int">
+        select count(*)
+        from
+        <include refid="tablename"/>
+    </select>
 </mapper>

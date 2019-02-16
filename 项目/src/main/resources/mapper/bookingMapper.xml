@@ -130,6 +130,9 @@
                 AND booking_price LIKE concat(concat('%',#{booking_price}),'%')
             </if>
         </where>
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
     </select>
 
     <!--boolean add(Booking t)-->
@@ -238,4 +241,104 @@
         <include refid="tablename"/>
         WHERE order_id=#{order_id}
     </delete>
+
+    <!--&lt;!&ndash; 根据分页数据start 和size查询数据 &ndash;&gt;-->
+    <!--<select id="findByPage" parameterType="Map" resultMap="myMap">-->
+        <!--select-->
+        <!--<include refid="fields"/>-->
+        <!--from-->
+        <!--<include refid="tablename"/>-->
+        <!--<where>-->
+            <!--<if test="order_id!=null">-->
+                <!--order_id LIKE concat(concat('%',#{order_id}),'%')-->
+            <!--</if>-->
+            <!--<if test="user_id!=null">-->
+                <!--AND user_id LIKE concat(concat('%',#{user_id}),'%')-->
+            <!--</if>-->
+            <!--<if test="realname!=null">-->
+                <!--AND realname LIKE concat(concat('%',#{realname}),'%')-->
+            <!--</if>-->
+            <!--<if test="phone!=null">-->
+                <!--AND phone LIKE concat(concat('%',#{phone}),'%')-->
+            <!--</if>-->
+            <!--<if test="category_name!=null">-->
+                <!--AND category_name LIKE concat(concat('%',#{category_name}),'%')-->
+            <!--</if>-->
+            <!--<if test="court_name!=null">-->
+                <!--AND court_name LIKE concat(concat('%',#{court_name}),'%')-->
+            <!--</if>-->
+            <!--<if test="beginDate!=null">-->
+                <!--and create_date >=#{beginDate}-->
+            <!--</if>-->
+            <!--<if test="endDate!=null">-->
+                <!--and #{endDate}>=create_date-->
+            <!--</if>-->
+            <!--<if test="beginBookingDate!=null">-->
+                <!--and booking_date >=#{beginBookingDate}-->
+            <!--</if>-->
+            <!--<if test="endBookingDate!=null">-->
+                <!--and #{endBookingDate}>=booking_date-->
+            <!--</if>-->
+            <!--<if test="bookingDate!=null">-->
+                <!--and booking_date=#{bookingDate}-->
+            <!--</if>-->
+            <!--<if test="booking_time!=null">-->
+                <!--AND booking_time LIKE concat(concat('%',#{booking_time}),'%')-->
+            <!--</if>-->
+            <!--<if test="booking_price!=null">-->
+                <!--AND booking_price LIKE concat(concat('%',#{booking_price}),'%')-->
+            <!--</if>-->
+        <!--</where>-->
+        <!--<if test="start!=null and size!=null">-->
+            <!--limit #{start},#{size}-->
+        <!--</if>-->
+    <!--</select>-->
+
+    <!-- 查询订单记录总数 -->
+    <select id="selectCount" resultType="int">
+        SELECT count(*)
+        FROM
+        <include refid="tablename"/>
+        <where>
+            <if test="order_id!=null">
+                order_id LIKE concat(concat('%',#{order_id}),'%')
+            </if>
+            <if test="user_id!=null">
+                AND user_id LIKE concat(concat('%',#{user_id}),'%')
+            </if>
+            <if test="realname!=null">
+                AND realname LIKE concat(concat('%',#{realname}),'%')
+            </if>
+            <if test="phone!=null">
+                AND phone LIKE concat(concat('%',#{phone}),'%')
+            </if>
+            <if test="category_name!=null">
+                AND category_name LIKE concat(concat('%',#{category_name}),'%')
+            </if>
+            <if test="court_name!=null">
+                AND court_name LIKE concat(concat('%',#{court_name}),'%')
+            </if>
+            <if test="beginDate!=null">
+                and create_date >=#{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and #{endDate}>=create_date
+            </if>
+            <if test="beginBookingDate!=null">
+                and booking_date >=#{beginBookingDate}
+            </if>
+            <if test="endBookingDate!=null">
+                and #{endBookingDate}>=booking_date
+            </if>
+            <if test="bookingDate!=null">
+                and booking_date=#{bookingDate}
+            </if>
+            <if test="booking_time!=null">
+                AND booking_time LIKE concat(concat('%',#{booking_time}),'%')
+            </if>
+            <if test="booking_price!=null">
+                AND booking_price LIKE concat(concat('%',#{booking_price}),'%')
+            </if>
+        </where>
+    </select>
 </mapper>

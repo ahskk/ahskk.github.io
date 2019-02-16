@@ -78,7 +78,7 @@
                     <ul>
                         <li><span>${manager.manager_account}</span></li>
                         <li><a href="/manager1/logOff">退出登录</a></li>
-                            <%--<li><a href="/booking/booking_history" class="label">查看历史预订记录</a></li>--%>
+                            <%--<li><a href="/booking/booking_history_findByProp" class="label">查看历史预订记录</a></li>--%>
                     </ul>
                 </c:otherwise>
             </c:choose>
@@ -87,32 +87,32 @@
     </div>
 </div>
 <%--<div class="header-nav">--%>
-    <%--<div class="container">--%>
-        <%--<div class="header-nav-bottom">--%>
-            <%--<nav class="navbar navbar-default">--%>
-                <%--<!-- Brand and toggle get grouped for better mobile display -->--%>
-                <%--<div class="navbar-header">--%>
-                    <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"--%>
-                            <%--data-target="#bs-example-navbar-collapse-1">--%>
-                        <%--<span class="sr-only">Toggle navigation</span>--%>
-                        <%--<span class="icon-bar"></span>--%>
-                        <%--<span class="icon-bar"></span>--%>
-                        <%--<span class="icon-bar"></span>--%>
-                    <%--</button>--%>
-                <%--</div>--%>
-                <%--<!-- Collect the nav links, forms, and other content for toggling -->--%>
-                <%--<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">--%>
-                    <%--<ul class="nav navbar-nav">--%>
-                        <%--<li class="active"><a href="/index.jsp">Home</a></li>--%>
-                        <%--<li><a href="#about" class="scroll">About</a></li>--%>
-                        <%--<li><a href="/booking/toBooking_main" class="label">Booking</a></li>--%>
-                        <%--<li><a href="#gallery" class="scroll">Photo Gallery</a></li>--%>
-                        <%--<li><a href="#contact" class="scroll">Contact Us</a></li>--%>
-                    <%--</ul>--%>
-                <%--</div><!-- /.navbar-collapse -->--%>
-            <%--</nav>--%>
-        <%--</div>--%>
-    <%--</div>--%>
+<%--<div class="container">--%>
+<%--<div class="header-nav-bottom">--%>
+<%--<nav class="navbar navbar-default">--%>
+<%--<!-- Brand and toggle get grouped for better mobile display -->--%>
+<%--<div class="navbar-header">--%>
+<%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"--%>
+<%--data-target="#bs-example-navbar-collapse-1">--%>
+<%--<span class="sr-only">Toggle navigation</span>--%>
+<%--<span class="icon-bar"></span>--%>
+<%--<span class="icon-bar"></span>--%>
+<%--<span class="icon-bar"></span>--%>
+<%--</button>--%>
+<%--</div>--%>
+<%--<!-- Collect the nav links, forms, and other content for toggling -->--%>
+<%--<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">--%>
+<%--<ul class="nav navbar-nav">--%>
+<%--<li class="active"><a href="/index.jsp">Home</a></li>--%>
+<%--<li><a href="#about" class="scroll">About</a></li>--%>
+<%--<li><a href="/booking/toBooking_main" class="label">Booking</a></li>--%>
+<%--<li><a href="#gallery" class="scroll">Photo Gallery</a></li>--%>
+<%--<li><a href="#contact" class="scroll">Contact Us</a></li>--%>
+<%--</ul>--%>
+<%--</div><!-- /.navbar-collapse -->--%>
+<%--</nav>--%>
+<%--</div>--%>
+<%--</div>--%>
 <%--</div>--%>
 
 <h1 style="text-align: center;padding: 10px">
@@ -150,6 +150,7 @@
         </thead>
         <tbody>
         <c:forEach items="${content.data}" var="u">
+        <%--<c:forEach items="${content.lists}" var="u">--%>
             <%--<c:forEach items="${pageinfo.list}" var="d">--%>
             <tr>
                 <td>${u.user_id}</td>
@@ -158,11 +159,11 @@
                 <td>${u.phone}</td>
                 <td>${u.id_num}</td>
                 <td>${u.regdate}</td>
-                <%--<td>--%>
+                    <%--<td>--%>
                     <%--<a href="/user/toEdit/${u.user_id}"--%>
-                       <%--class="label label-danger large">修改--%>
+                    <%--class="label label-danger large">修改--%>
                     <%--</a>--%>
-                <%--</td>--%>
+                    <%--</td>--%>
                 <td>
                     <a href="/user/delete/${u.user_id}"
                        class="label label-danger large">删除
@@ -174,27 +175,113 @@
     </table>
 </div>
 <%--数据展示表格结束--%>
+
+<table border="0" cellspacing="0" cellpadding="0" width="900px">
+    <tr>
+        <td class="td2">
+            <span>第${content.currPage }/ ${content.totalPage}页</span>
+            <span>总记录数：${content.totalCount }  每页显示:${content.pageSize}</span>
+            <span>
+            <c:if test="${content.currPage != 1}">
+                <a href="${content.contextPath }/user/findByProp?currentPage=1&BeginDate=${condition.beginDate}&EndDate=${condition.endDate}">[首页]</a>
+                <a href="${content.contextPath }/user/findByProp?currentPage=${content.currPage-1}&BeginDate=${condition.beginDate}&EndDate=${condition.endDate}">[上一页]</a>
+            </c:if>
+
+            <c:if test="${content.currPage != content.totalPage}">
+                <a href="${content.contextPath }/user/findByProp?currentPage=${content.currPage+1}&BeginDate=${condition.beginDate}&EndDate=${condition.endDate}">[下一页]</a>
+                <a href="${content.contextPath }/user/findByProp?currentPage=${content.totalPage}&BeginDate=${condition.beginDate}&EndDate=${condition.endDate}">[尾页]</a>
+            </c:if>
+            </span>
+        </td>
+    </tr>
+</table>
+
 </body>
 </html>
 
+<%--<body>--%>
+<%--欢迎你：${currentUser}--%>
+<%--<br>--%>
+<%--&lt;%&ndash; 当前用户：${pageScope.currentUser}<!-- (只能在同一个页面中使用) --> <br>--%>
+<%--当前用户：${requestScope.currentUser}-${roleName} 有重定向数据就访问不到<br>--%>
+<%--当前用户：${sessionScope.currentUser}-${roleName} 可以使用<br> &ndash;%&gt;--%>
+<%--<hr>--%>
+<%--<a href="add"> 添加用户</a><br>--%>
+<%--<c:if test="${empty content}">--%>
+    <%--没有任何用户信息！--%>
+<%--</c:if>--%>
+<%--<c:if test="${!empty content}">--%>
+    <%--<table border="1" cellpadding="10" cellspacing="0" class="table1">--%>
+        <%--<thead>--%>
+        <%--<tr>--%>
+            <%--<td>编号</td>--%>
+            <%--<td>用户名</td>--%>
+            <%--<td>密码</td>--%>
+            <%--<td>邮件</td>--%>
+            <%--<td>联系电话</td>--%>
+            <%--<td>职位</td>--%>
+            <%--<td>Edit</td>--%>
+            <%--<td>Delete</td>--%>
+        <%--</tr>--%>
+        <%--</thead>--%>
+        <%--<c:forEach items="${content.lists}" var="u">--%>
+            <%--<tr>--%>
+                <%--<th>${u.user_id }</th>--%>
+                <%--<th>${u.username }</th>--%>
+                <%--<th>${u.password }</th>--%>
+                <%--<th>${u.email }</th>--%>
+                <%--<th>${u.phone }</th>--%>
+                <%--<th>${u.rolename }</th>--%>
+                <%--<th><a href="edit?id=${u.user_id}">Edit</a></th>--%>
+                <%--<th><a href="delete?id=${u.user_id}" onclick="return confirm('确定要删除吗')">Delete</a></th>--%>
+            <%--</tr>--%>
+        <%--</c:forEach>--%>
+    <%--</table>--%>
+<%--</c:if>--%>
+
+<%--<table border="0" cellspacing="0" cellpadding="0" width="900px">--%>
+    <%--<tr>--%>
+
+        <%--<td class="td2">--%>
+
+
+            <%--<span>第${content.currPage }/ ${content.totalPage}页</span>--%>
+            <%--<span>总记录数：${content.totalCount }  每页显示:${content.pageSize}</span>--%>
+            <%--<span>--%>
+       <%--<c:if test="${content.currPage != 1}">--%>
+           <%--<a href="${content.contextPath }/user/manage?currentPage=1">[首页]</a>--%>
+           <%--<a href="${content.contextPath }/user/manage?currentPage=${content.currPage-1}">[上一页]</a>--%>
+       <%--</c:if>--%>
+
+       <%--<c:if test="${content.currPage != content.totalPage}">--%>
+           <%--<a href="${content.contextPath }/user/manage?currentPage=${content.currPage+1}">[下一页]</a>--%>
+           <%--<a href="${content.contextPath }/user/manage?currentPage=${content.totalPage}">[尾页]</a>--%>
+       <%--</c:if>--%>
+   <%--</span>--%>
+        <%--</td>--%>
+    <%--</tr>--%>
+<%--</table>--%>
+<%--</body>--%>
+
+
 <%--<script>--%>
-    <%--//    $inputVal.blur(function (event) {--%>
-    <%--$(function () {--%>
+<%--//    $inputVal.blur(function (event) {--%>
+<%--$(function () {--%>
 <%--//        alert("aaaa");--%>
-        <%--$.ajax({--%>
-            <%--url: '/user/manage',--%>
-            <%--type: 'GET',--%>
-            <%--dataType: 'JSON',--%>
-            <%--success: function (res, status, xhr) {--%>
-                <%--var a=JSON.parse(res);--%>
-                <%--alert(a);--%>
-                <%--alert(a.data.length);--%>
-                <%--var html = '';--%>
-                <%--for(var i = 0;i<a.data.length;i++){--%>
+<%--$.ajax({--%>
+<%--url: '/user/manage',--%>
+<%--type: 'GET',--%>
+<%--dataType: 'JSON',--%>
+<%--success: function (res, status, xhr) {--%>
+<%--var a=JSON.parse(res);--%>
+<%--alert(a);--%>
+<%--alert(a.data.length);--%>
+<%--var html = '';--%>
+<%--for(var i = 0;i<a.data.length;i++){--%>
 <%--////                    alert(i);--%>
-                    <%--var username = a.data[i]['username'];--%>
-                    <%--$("#username").innerHTML ="qweqw";--%>
-                    <%--alert(username);--%>
+<%--var username = a.data[i]['username'];--%>
+<%--$("#username").innerHTML ="qweqw";--%>
+<%--alert(username);--%>
 <%--//                    data1[i] = {user_id:user_id};--%>
 
 <%--//                    html = html + '<tr>';--%>
@@ -202,13 +289,13 @@
 <%--//                    html = html + '<td id="realname">' + a.data[i]['realname'] + '</td>';--%>
 <%--//                    html = html + '<td id="username">' + a.data[i]['username'] + '</td>';--%>
 <%--//                    html = html + '</tr>';--%>
-                <%--}--%>
+<%--}--%>
 <%--//                $('#table table-hover').append(html);--%>
-            <%--},--%>
-            <%--error: function () {--%>
-                <%--alert("error");--%>
-            <%--}--%>
-        <%--});--%>
-    <%--});--%>
-    <%--//    })--%>
+<%--},--%>
+<%--error: function () {--%>
+<%--alert("error");--%>
+<%--}--%>
+<%--});--%>
+<%--});--%>
+<%--//    })--%>
 <%--</script>--%>

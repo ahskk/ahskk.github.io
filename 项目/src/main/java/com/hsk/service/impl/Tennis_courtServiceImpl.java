@@ -1,6 +1,7 @@
 package com.hsk.service.impl;
 
 import com.hsk.dao.ITennis_courtDao;
+import com.hsk.dto.PageBean;
 import com.hsk.dto.Tennis_court;
 import com.hsk.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,10 @@ public class Tennis_courtServiceImpl implements IBaseService<Tennis_court>{//   
     @Override
     public List<Tennis_court> findByProp(Map map) throws SQLException {
         return dao.findByProp(map);
+    }
+
+    @Override
+    public int selectCount(Map map) {
+        return 0;
     }
 }

@@ -1,6 +1,9 @@
 package com.hsk.service;
 
 
+import com.hsk.dto.Booking;
+import com.hsk.dto.PageBean;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -53,4 +56,8 @@ public interface IBaseService<T> {
     List<T> findByProp(Map map) throws SQLException;
 
     //可以根据项目情况再自行添加
+
+    int selectCount(Map map);
+
+//    PageBean<T> findByPage(int currentPage);
 }

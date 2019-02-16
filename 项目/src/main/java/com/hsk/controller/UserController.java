@@ -31,9 +31,25 @@ public class UserController {
 //        return "/user/manage";
 //    }
     
+//    @RequestMapping("/manage") //HandlerMapping
+////    @ResponseBody
+//    public String domanage(Model model) throws SQLException {
+//        java.util.Map queryMap = new HashMap();
+//        List<User> list = usi.findByProp(queryMap);
+//        java.util.Map map = new HashMap();
+//        map.put("success",true);
+//        map.put("data",list);
+//        map.put("status",200);
+////        将数据添加到域对象
+//        model.addAttribute("content", map);
+//        //视图信息，根据视图解析规则拼接具体页面信息
+//        return "/user/manage";
+////        return JSON.toJSONString(map);
+//    }
+
     @RequestMapping("/manage") //HandlerMapping
 //    @ResponseBody
-    public String domanage(Model model) throws SQLException {
+    public String domanage(@RequestParam(value="currentPage",defaultValue="1",required=false)int currentPage,Model model) throws SQLException {
         java.util.Map queryMap = new HashMap();
         List<User> list = usi.findByProp(queryMap);
         java.util.Map map = new HashMap();
@@ -42,10 +58,17 @@ public class UserController {
         map.put("status",200);
 //        将数据添加到域对象
         model.addAttribute("content", map);
+//        model.addAttribute("pagemsg", usi.findByPage(currentPage));//回显分页数据
         //视图信息，根据视图解析规则拼接具体页面信息
         return "/user/manage";
 //        return JSON.toJSONString(map);
     }
+
+//    @RequestMapping("/main")
+//    public String  main(@RequestParam(value="currentPage",defaultValue="1",required=false)int currentPage,Model model){
+//        model.addAttribute("pagemsg", usi.findByPage(currentPage));//回显分页数据
+//        return "main";
+//    }
 
     @RequestMapping("/getData") //HandlerMapping
     @ResponseBody
@@ -91,28 +114,64 @@ public class UserController {
     
     @RequestMapping("/findByProp")
 //    @ResponseBody
-    public String doFindByProp(User user,
+    public String doFindByProp(User user,@RequestParam(value = "currentPage", defaultValue = "1", required = false)int currentPage,
+                               @RequestParam(value = "BeginDate",required = false)String BeginDate,
+                               @RequestParam(value = "EndDate", required = false) String EndDate,
                                String beginDate,String endDate,Model model) throws SQLException {
         Map map = new HashMap();
-        if(beginDate==""){
-            map.put("beginDate",null);
-        }else{
-            map.put("beginDate",beginDate);
+        if (BeginDate == null) {
+            if (beginDate == "") {
+                map.put("beginDate", null);
+            } else {
+                map.put("beginDate", beginDate);
+            }
+        } else {
+            if (BeginDate == "") {
+                map.put("beginDate", null);
+            } else {
+                map.put("beginDate", BeginDate);
+            }
         }
-        if(endDate==""){
-            map.put("endDate",null);
-        }else{
-            map.put("endDate",endDate);
+        if (EndDate == null) {
+            if (endDate == "") {
+                map.put("endDate", null);
+            } else {
+                map.put("endDate", endDate);
+            }
+        } else {
+            if (EndDate == "") {
+                map.put("endDate", null);
+            } else {
+                map.put("endDate", EndDate);
+            }
         }
+
+        //        每页显示的数据
+        int pageSize = 5;
+//        封装总记录数
+        int totalCount = usi.selectCount(map);
+        System.out.println("totalCount:" + totalCount);
+        //封装总页数
+        double tc = totalCount;
+        Double totalPage = Math.ceil(tc / pageSize);//向上取整
+
+        map.put("start", (currentPage - 1) * pageSize);
+        map.put("size", pageSize);
         List<User> list = usi.findByProp(map);
 //        生成HashMap对象
         Map map1 = new HashMap();
 //        map1.put("status", 200);
 //        map1.put("success", true);
         map1.put("data", list);
+        map1.put("totalCount", totalCount);
+        map1.put("pageSize", pageSize);
+        map1.put("totalPage", totalPage.intValue());
+        map1.put("currPage", currentPage);
 //        将集合数据转换成json字符串
 //        return JSON.toJSONString(map1);
         model.addAttribute("content",map1);
+        model.addAttribute("condition", map);
+        System.out.println(map);
         return "/user/manage";
     }
 

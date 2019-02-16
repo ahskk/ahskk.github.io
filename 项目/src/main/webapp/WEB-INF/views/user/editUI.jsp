@@ -77,7 +77,7 @@
                     <ul>
                         <li><a href="/user/toEdit/${user.user_id}"><span>${user.username}</span></a></li>
                         <li><a href="/user/logOff">退出登录</a></li>
-                        <li><a href="/booking/booking_history" class="label">查看历史预订记录</a></li>
+                        <li><a href="/booking/booking_history_findByProp" class="label">查看历史预订记录</a></li>
                     </ul>
                 </c:otherwise>
             </c:choose>
@@ -177,7 +177,7 @@
                     <%--修改时，用户名不能修改--%>
                     <c:otherwise>
                         <div class="form-group">
-                            <label for="repassword" class="col-sm-4 control-label">重置密码</label>
+                            <label for="repassword" class="col-sm-4 control-label">密码</label>
                             <div class="col-sm-8">
                                 <input type="password" name="password" class="form-control"
                                        placeholder="请输入密码" value="${user.password}" required minlength="6">

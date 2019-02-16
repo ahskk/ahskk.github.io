@@ -75,7 +75,7 @@
                     <ul>
                         <li><span>${manager.manager_account}</span></li>
                         <li><a href="/manager1/logOff">退出登录</a></li>
-                        <%--<li><a href="/booking/booking_history" class="label">查看历史预订记录</a></li>--%>
+                        <%--<li><a href="/booking/booking_history_findByProp" class="label">查看历史预订记录</a></li>--%>
                     </ul>
                 </c:otherwise>
             </c:choose>
@@ -117,8 +117,8 @@
         </div>
         <div class="col-md-6 column">
             <a href="${pageContext.request.contextPath}/category/manage" class="btn btn-info btn-block" style="margin-top: 10px" role="button">分类管理</a>
-            <a href="${pageContext.request.contextPath}/user/manage" class="btn btn-danger btn-block" role="button">用户管理</a>
-            <a href="${pageContext.request.contextPath}/booking/manage" class="btn btn-success btn-block" role="button">订单管理</a>
+            <a href="${pageContext.request.contextPath}/user/findByProp" class="btn btn-danger btn-block" role="button">用户管理</a>
+            <a href="${pageContext.request.contextPath}/booking/findByProp" class="btn btn-success btn-block" role="button">订单管理</a>
             <a href="${pageContext.request.contextPath}/announcement/announcement_manage" class="btn btn-warning btn-block" role="button">公告管理</a>
             <a href="${pageContext.request.contextPath}/basketball_court/manage" class="btn btn-primary btn-block" role="button">篮球场管理</a>
             <a href="${pageContext.request.contextPath}/tennis_court/manage" class="btn btn-primary btn-block" role="button">网球场管理</a>

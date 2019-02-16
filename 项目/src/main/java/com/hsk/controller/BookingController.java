@@ -2,6 +2,7 @@ package com.hsk.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.hsk.dto.Booking;
+import com.hsk.dto.PageBean;
 import com.hsk.dto.User;
 import com.hsk.service.impl.BookingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,7 @@ public class BookingController {
         map.put("data", list);
         map.put("status", 200);
         model.addAttribute("content", map);
+//        model.addAttribute("pagemsg", service.findByPage(currentPage));
         return "/booking/manage";
 //        return JSON.toJSONString(map);
     }
@@ -70,6 +74,7 @@ public class BookingController {
         }
     }
 
+    //    管理员限制场次
     @RequestMapping("/managerAdd") //HandlerMapping
     @ResponseBody
     public String domanagerAdd(Booking booking) throws SQLException {
@@ -97,7 +102,7 @@ public class BookingController {
     @RequestMapping("/deleted/{order_id}")
     public String doDeleted(@PathVariable String order_id) throws SQLException {
         service.delete(order_id);
-        return "redirect:/booking/booking_history";
+        return "redirect:/booking/booking_history_findByProp";
     }
 
     @RequestMapping("/delete/{order_id}")
@@ -117,49 +122,162 @@ public class BookingController {
         return JSON.toJSONString(map);
     }
 
+//    @RequestMapping("/findByProp")
+////    @ResponseBody
+//    public String doFindByProp(String category_name, String beginDate, String endDate,
+//                               String beginBookingDate, String endBookingDate,
+//                               Model model) throws SQLException {
+//        Map map = new HashMap();
+//        if (category_name == "") {
+//            map.put("category_name", null);
+//        } else {
+//            map.put("category_name", category_name);
+//        }
+//        System.out.println(map);
+//        if (beginDate == "") {
+//            map.put("beginDate", null);
+//        } else {
+//            map.put("beginDate", beginDate);
+//        }
+//        if (endDate == "") {
+//            map.put("endDate", null);
+//        } else {
+//            map.put("endDate", endDate);
+//        }
+//        if (beginBookingDate == "") {
+//            map.put("beginBookingDate", null);
+//        } else {
+//            map.put("beginBookingDate", beginBookingDate);
+//        }
+//        if (endBookingDate == "") {
+//            map.put("endBookingDate", null);
+//        } else {
+//            map.put("endBookingDate", endBookingDate);
+//        }
+//        List<Booking> list = service.findByProp(map);
+////        生成HashMap对象
+//        Map map1 = new HashMap();
+////        map1.put("status", 200);
+////        map1.put("success", true);
+//        map1.put("data", list);
+////        将集合数据转换成json字符串
+////        return JSON.toJSONString(map1);
+//        model.addAttribute("content", map1);
+//        return "/booking/manage";
+//    }
+
     @RequestMapping("/findByProp")
 //    @ResponseBody
-    public String doFindByProp(String category_name,
-                               String beginDate, String endDate, String beginBookingDate,
-                               String endBookingDate, Model model) throws SQLException {
+    public String doFindByProp(String category_name, String beginDate, String endDate,
+                               String beginBookingDate, String endBookingDate,
+                               @RequestParam(value = "currentPage", defaultValue = "1", required = false) int currentPage,
+                               @RequestParam(value = "Category_name", required = false) String Category_name,
+                               @RequestParam(value = "BeginDate", required = false) String BeginDate,
+                               @RequestParam(value = "EndDate", required = false) String EndDate,
+                               @RequestParam(value = "BeginBookingDate", required = false) String BeginBookingDate,
+                               @RequestParam(value = "EndBookingDate", required = false) String EndBookingDate,
+                               Model model) throws SQLException {
         Map map = new HashMap();
-        if (category_name == "") {
-            map.put("category_name", null);
+//        String def = "a";
+        if (Category_name == null) {
+            if (category_name == "") {
+                map.put("category_name", null);
+            } else {
+                map.put("category_name", category_name);
+            }
         } else {
-            map.put("category_name", category_name);
+            if (Category_name == "") {
+                map.put("category_name", null);
+            } else {
+                map.put("category_name", Category_name);
+            }
         }
-        System.out.println(map);
-        if (beginDate == "") {
-            map.put("beginDate", null);
+//        System.out.println(map);
+        if (BeginDate == null) {
+            if (beginDate == "") {
+                map.put("beginDate", null);
+            } else {
+                map.put("beginDate", beginDate);
+            }
         } else {
-            map.put("beginDate", beginDate);
+            if (BeginDate == "") {
+                map.put("beginDate", null);
+            } else {
+                map.put("beginDate", BeginDate);
+            }
         }
-        if (endDate == "") {
-            map.put("endDate", null);
+        if (EndDate == null) {
+            if (endDate == "") {
+                map.put("endDate", null);
+            } else {
+                map.put("endDate", endDate);
+            }
         } else {
-            map.put("endDate", endDate);
+            if (EndDate == "") {
+                map.put("endDate", null);
+            } else {
+                map.put("endDate", EndDate);
+            }
         }
-        if (beginBookingDate == "") {
-            map.put("beginBookingDate", null);
+        if (BeginBookingDate == null) {
+            if (beginBookingDate == "") {
+                map.put("beginBookingDate", null);
+            } else {
+                map.put("beginBookingDate", beginBookingDate);
+            }
         } else {
-            map.put("beginBookingDate", beginBookingDate);
+            if (BeginBookingDate == "") {
+                map.put("beginBookingDate", null);
+            } else {
+                map.put("beginBookingDate", BeginBookingDate);
+            }
         }
-        if (endBookingDate == "") {
-            map.put("endBookingDate", null);
+        if (EndBookingDate == null) {
+            if (endBookingDate == "") {
+                map.put("endBookingDate", null);
+            } else {
+                map.put("endBookingDate", endBookingDate);
+            }
         } else {
-            map.put("endBookingDate", endBookingDate);
+            if (EndBookingDate == "") {
+                map.put("endBookingDate", null);
+            } else {
+                map.put("endBookingDate", EndBookingDate);
+            }
         }
+
+//        每页显示的数据
+        int pageSize = 10;
+//        封装总记录数
+        int totalCount = service.selectCount(map);
+        System.out.println("totalCount:" + totalCount);
+        //封装总页数
+        double tc = totalCount;
+        Double totalPage = Math.ceil(tc / pageSize);//向上取整
+
+        map.put("start", (currentPage - 1) * pageSize);
+        map.put("size", pageSize);
+
         List<Booking> list = service.findByProp(map);
 //        生成HashMap对象
         Map map1 = new HashMap();
 //        map1.put("status", 200);
 //        map1.put("success", true);
         map1.put("data", list);
+        map1.put("totalCount", totalCount);
+        map1.put("pageSize", pageSize);
+        map1.put("totalPage", totalPage.intValue());
+        map1.put("currPage", currentPage);
 //        将集合数据转换成json字符串
 //        return JSON.toJSONString(map1);
         model.addAttribute("content", map1);
+        model.addAttribute("condition", map);
+        System.out.println(map);
+
+//        model.addAttribute("pagemsg", service.findByPage(currentPage));
         return "/booking/manage";
     }
+
 
     @RequestMapping("/toBooking_main")
     public String toBooking_main() {
@@ -197,6 +315,7 @@ public class BookingController {
 //            return "/booking/booking_message";
     }
 
+    //    判断是否有预订记录
     @RequestMapping("/checkBookingHistory")
     @ResponseBody
     public String doCheckBookingHistory(String category_name, String curYear,
@@ -269,40 +388,100 @@ public class BookingController {
 
     @RequestMapping("/booking_history_findByProp") //HandlerMapping
 //    @ResponseBody
-    public String doBooking_history_findByProp(String category_name,
-                                               String beginDate, String endDate, String beginBookingDate,
-                                               String endBookingDate, Model model, HttpSession session) throws SQLException {
+    public String doBooking_history_findByProp(String category_name, String beginDate, String endDate,
+                                               String beginBookingDate, String endBookingDate, Model model,
+                                               @RequestParam(value = "currentPage", defaultValue = "1", required = false) int currentPage,
+                                               @RequestParam(value = "Category_name", required = false) String Category_name,
+                                               @RequestParam(value = "BeginDate", required = false) String BeginDate,
+                                               @RequestParam(value = "EndDate", required = false) String EndDate,
+                                               @RequestParam(value = "BeginBookingDate", required = false) String BeginBookingDate,
+                                               @RequestParam(value = "EndBookingDate", required = false) String EndBookingDate,
+                                               HttpSession session) throws SQLException {
 //        System.out.println("ddd");
         Map map = new HashMap();
-        if (category_name == "") {
-            map.put("category_name", null);
+        if (Category_name == null) {
+            if (category_name == "") {
+                map.put("category_name", null);
+            } else {
+                map.put("category_name", category_name);
+            }
         } else {
-            map.put("category_name", category_name);
+            if (Category_name == "") {
+                map.put("category_name", null);
+            } else {
+                map.put("category_name", Category_name);
+            }
         }
-        System.out.println(map);
-        if (beginDate == "") {
-            map.put("beginDate", null);
+//        System.out.println(map);
+        if (BeginDate == null) {
+            if (beginDate == "") {
+                map.put("beginDate", null);
+            } else {
+                map.put("beginDate", beginDate);
+            }
         } else {
-            map.put("beginDate", beginDate);
+            if (BeginDate == "") {
+                map.put("beginDate", null);
+            } else {
+                map.put("beginDate", BeginDate);
+            }
         }
-        if (endDate == "") {
-            map.put("endDate", null);
+        if (EndDate == null) {
+            if (endDate == "") {
+                map.put("endDate", null);
+            } else {
+                map.put("endDate", endDate);
+            }
         } else {
-            map.put("endDate", endDate);
+            if (EndDate == "") {
+                map.put("endDate", null);
+            } else {
+                map.put("endDate", EndDate);
+            }
         }
-        if (beginBookingDate == "") {
-            map.put("beginBookingDate", null);
+        if (BeginBookingDate == null) {
+            if (beginBookingDate == "") {
+                map.put("beginBookingDate", null);
+            } else {
+                map.put("beginBookingDate", beginBookingDate);
+            }
         } else {
-            map.put("beginBookingDate", beginBookingDate);
+            if (BeginBookingDate == "") {
+                map.put("beginBookingDate", null);
+            } else {
+                map.put("beginBookingDate", BeginBookingDate);
+            }
         }
-        if (endBookingDate == "") {
-            map.put("endBookingDate", null);
+        if (EndBookingDate == null) {
+            if (endBookingDate == "") {
+                map.put("endBookingDate", null);
+            } else {
+                map.put("endBookingDate", endBookingDate);
+            }
         } else {
-            map.put("endBookingDate", endBookingDate);
+            if (EndBookingDate == "") {
+                map.put("endBookingDate", null);
+            } else {
+                map.put("endBookingDate", EndBookingDate);
+            }
         }
-//        java.util.Map queryMap = new HashMap();
+
         User user = (User) session.getAttribute("user");
         map.put("user_id", user.getUser_id());
+//        每页显示的数据
+        int pageSize = 10;
+//        封装总记录数
+        int totalCount = service.selectCount(map);
+        System.out.println("totalCount:" + totalCount);
+        //封装总页数
+        double tc = totalCount;
+        Double totalPage = Math.ceil(tc / pageSize);//向上取整
+
+        map.put("start", (currentPage - 1) * pageSize);
+        map.put("size", pageSize);
+        System.out.println(currentPage+"  "+"  "+pageSize);
+//        java.util.Map queryMap = new HashMap();
+
 //        System.out.println(queryMap);
         List<Booking> list = service.findByProp(map);
 //        System.out.println(list);
@@ -310,7 +489,14 @@ public class BookingController {
         map1.put("success", true);
         map1.put("data", list);
         map1.put("status", 200);
+
+        map1.put("totalCount", totalCount);
+        map1.put("pageSize", pageSize);
+        map1.put("totalPage", totalPage.intValue());
+        map1.put("currPage", currentPage);
+
         model.addAttribute("content", map1);
+        model.addAttribute("condition", map);
         return "/booking/booking_history";
 //        return JSON.toJSONString(map);
     }

@@ -1,12 +1,14 @@
 package com.hsk.service.impl;
 
 import com.hsk.dao.IUserDao;
+import com.hsk.dto.PageBean;
 import com.hsk.dto.User;
 import com.hsk.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +54,41 @@ public class UserServiceImpl implements IBaseService<User> {
     public List<User> findByProp(Map map) throws SQLException {
         return dao.findByProp(map);
     }
+
+    @Override
+    public int selectCount(Map map) {
+        return dao.selectCount(map);
+    }
+
+//    @Override
+//    public PageBean<User> findByPage(int currentPage) {
+//        HashMap<String,Object> map = new HashMap<String,Object>();
+//        PageBean<User> pageBean = new PageBean<User>();
+//
+//        //封装当前页数
+//        pageBean.setCurrPage(currentPage);
+//
+//        //每页显示的数据
+//        int pageSize=10;
+//        pageBean.setPageSize(pageSize);
+//
+//        //封装总记录数
+//        int totalCount = dao.selectCount(map);
+//        pageBean.setTotalCount(totalCount);
+//
+//        //封装总页数
+//        double tc = totalCount;
+//        Double num =Math.ceil(tc/pageSize);//向上取整
+//        pageBean.setTotalPage(num.intValue());
+//
+//        map.put("start",(currentPage-1)*pageSize);
+//        map.put("size", pageBean.getPageSize());
+//        //封装每页显示的数据
+//        List<User> lists = dao.findByPage(map);
+//        pageBean.setLists(lists);
+//
+//        return pageBean;
+//    }
 
     /**
      * 判断用户名称是否存在

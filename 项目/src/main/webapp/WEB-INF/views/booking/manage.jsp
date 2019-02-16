@@ -77,7 +77,7 @@
                     <ul>
                         <li><span>${manager.manager_account}</span></li>
                         <li><a href="/manager1/logOff">退出登录</a></li>
-                            <%--<li><a href="/booking/booking_history" class="label">查看历史预订记录</a></li>--%>
+                            <%--<li><a href="/booking/booking_history_findByProp" class="label">查看历史预订记录</a></li>--%>
                     </ul>
                 </c:otherwise>
             </c:choose>
@@ -172,11 +172,13 @@
             <th>订单创建日期</th>
             <th>预订日期</th>
             <th>预订时间段</th>
-            <th>预订价格</th>
+            <%--<th>预订价格</th>--%>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${content.data}" var="b">
+        <%--<c:forEach items="${requestScope.pagemsg.lists}" var="b">--%>
+        <%--<c:forEach items="${requestScope.data}" var="b">--%>
             <%--<c:forEach items="${pageinfo.list}" var="d">--%>
             <tr>
                 <td>${b.order_id}</td>
@@ -188,7 +190,7 @@
                 <td>${b.create_date}</td>
                 <td>${b.booking_date}</td>
                 <td>${b.booking_time}</td>
-                <td>${b.booking_price}</td>
+                <%--<td>${b.booking_price}</td>--%>
                 <td>
                     <a href="/booking/delete/${b.order_id}"
                        class="label label-danger large">删除
@@ -200,6 +202,49 @@
     </table>
 </div>
 <%--数据展示表格结束--%>
+
+<%--<table border="0" cellspacing="0" cellpadding="0" width="900px">--%>
+    <%--<tr>--%>
+        <%--<td class="td2">--%>
+            <%--<span>第${requestScope.pagemsg.currPage }/ ${requestScope.pagemsg.totalPage}页</span>--%>
+            <%--<span>总记录数：${requestScope.pagemsg.totalCount }  每页显示:${requestScope.pagemsg.pageSize}</span>--%>
+            <%--<span>--%>
+                <%--<c:if test="${requestScope.pagemsg.currPage != 1}">--%>
+                    <%--<a href="${pageContext.request.contextPath }/booking/manage?currentPage=1">[首页]</a>--%>
+                    <%--<a href="${pageContext.request.contextPath }/booking/manage?currentPage=${requestScope.pagemsg.currPage-1}">[上一页]</a>--%>
+                <%--</c:if>--%>
+
+                <%--<c:if test="${requestScope.pagemsg.currPage != requestScope.pagemsg.totalPage}">--%>
+                    <%--<a href="${pageContext.request.contextPath }/booking/manage?currentPage=${requestScope.pagemsg.currPage+1}">[下一页]</a>--%>
+                    <%--<a href="${pageContext.request.contextPath }/booking/manage?currentPage=${requestScope.pagemsg.totalPage}">[尾页]</a>--%>
+                <%--</c:if>--%>
+            <%--</span>--%>
+        <%--</td>--%>
+    <%--</tr>--%>
+<%--</table>--%>
+
+
+<table border="0" cellspacing="0" cellpadding="0" width="900px">
+    <tr>
+        <td class="td2">
+            <span>第${content.currPage }/ ${content.totalPage}页</span>
+            <span>总记录数：${content.totalCount }  每页显示:${content.pageSize}</span>
+            <span>
+                <c:if test="${content.currPage != 1}">
+                    <a href="${content.contextPath }/booking/findByProp?currentPage=1&Category_name=${condition.category_name}&BeginDate=${condition.beginDate}&EndDate=${condition.endDate}&BeginBookingDate=${condition.beginBookingDate}&EndBookingDate=${condition.endBookingDate}">[首页]</a>
+                    <a href="${content.contextPath }/booking/findByProp?currentPage=${content.currPage-1}&Category_name=${condition.category_name}&BeginDate=${condition.beginDate}&EndDate=${condition.endDate}&BeginBookingDate=${condition.beginBookingDate}&EndBookingDate=${condition.endBookingDate}">[上一页]</a>
+                </c:if>
+
+                <c:if test="${content.currPage != content.totalPage}">
+                    <a href="${content.contextPath }/booking/findByProp?currentPage=${content.currPage+1}&Category_name=${condition.category_name}&BeginDate=${condition.beginDate}&EndDate=${condition.endDate}&BeginBookingDate=${condition.beginBookingDate}&EndBookingDate=${condition.endBookingDate}">[下一页]</a>
+                    <a href="${content.contextPath }/booking/findByProp?currentPage=${content.totalPage}&Category_name=${condition.category_name}&BeginDate=${condition.beginDate}&EndDate=${condition.endDate}&BeginBookingDate=${condition.beginBookingDate}&EndBookingDate=${condition.endBookingDate}">[尾页]</a>
+                </c:if>
+            </span>
+        </td>
+    </tr>
+</table>
+
+
 </body>
 </html>
 <script>

@@ -2,6 +2,7 @@ package com.hsk.service.impl;
 
 import com.hsk.dao.IAnnouncementDao;
 import com.hsk.dto.Announcement;
+import com.hsk.dto.PageBean;
 import com.hsk.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,5 +73,10 @@ public class AnnouncementServiceImpl implements IBaseService<Announcement> {
     @Override
     public List<Announcement> findByProp(Map map) throws SQLException {
         return dao.findByProp(map);
+    }
+
+    @Override
+    public int selectCount(Map map) {
+        return 0;
     }
 }

@@ -78,7 +78,7 @@
                     <ul>
                         <li><a href="/user/toEdit/${user.user_id}"><span>${user.username}</span></a></li>
                         <li><a href="/user/logOff">退出登录</a></li>
-                        <li><a href="/booking/booking_history" class="label">查看历史预订记录</a></li>
+                        <li><a href="/booking/booking_history_findByProp" class="label">查看历史预订记录</a></li>
                     </ul>
                 </c:otherwise>
             </c:choose>
