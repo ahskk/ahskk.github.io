@@ -84,7 +84,7 @@
 <div class="header">
     <div class="container">
         <div class="header-left">
-            <a href="/index.jsp">球场预订系统</a>
+            <a href="/index.jsp">公共运动场地预订系统</a>
         </div>
         <div class="header-left1">
             <p></p>

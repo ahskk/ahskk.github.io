@@ -58,7 +58,7 @@
 <div class="header">
     <div class="container">
         <div class="header-left">
-            <a href="/index.jsp">球场预订系统</a>
+            <a href="/index.jsp">公共运动场地预订系统</a>
         </div>
         <div class="header-left1">
             <p></p>
@@ -201,8 +201,7 @@
                                 篮球场
                             </h3>
                             <p>
-                                简介：Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                简介：人们通过参与篮球运动，既可以强身健体，也可以使个性、自信心、审美情趣、意志力、进取心、自我约束等能力都有很好的发展，也有利于培养团结合作、尊重对手、公平竞争的道德品质 。
                             </p>
                             <p>
                                 <a class="btn btn-primary" href="/basketball_court/toBooking_basketball">预订</a>
@@ -218,8 +217,7 @@
                                 网球场
                             </h3>
                             <p>
-                                简介：Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                简介：经常从事网球运动可增强体质，促进身心全面发展，能有效地发展速度、力量素质，增强协调性和提高耐久力，还能发展人的机智勇敢、沉着冷静、敢于拼搏的优良心理素质。
                             </p>
                             <p>
                                 <a class="btn btn-primary" href="/tennis_court/toBooking_tennis">预订</a>
@@ -235,8 +233,7 @@
                                 羽毛球场
                             </h3>
                             <p>
-                                简介：Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                简介：羽毛球运动适合于男女老幼，适量的羽毛球运动能培养青少年自信、勇敢、果断等优良的心理素质。老年人和体弱者可作为保健康复的方法进行锻炼，增强心血管和神经系统的功能。
                             </p>
                             <p>
                                 <a class="btn btn-primary" href="/badminton_court/toBooking_badminton">预订</a>

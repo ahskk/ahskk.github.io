@@ -84,7 +84,7 @@
 <div class="header">
     <div class="container">
         <div class="header-left">
-            <a href="/index.jsp">球场预订系统</a>
+            <a href="/index.jsp">公共运动场地预订系统</a>
         </div>
         <div class="header-left1">
             <p></p>
@@ -141,7 +141,6 @@
 </div>
 
 
-
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-2 column">
@@ -167,14 +166,17 @@
                     <dd>${content.booking_time}</dd>
                 <%--</c:forEach>--%>
             </dl>
-            <div class="col-md-6 column">
+            <div class="col-lg-3 column"></div>
+            <div class="col-md-3 column">
                 <a class="btn btn-default" style="display: inline-block;text-align: center" href="/booking/cancel/${content.order_id}">取消预订</a>
                 <%--<button type="button" class="btn btn-default">按钮</button>--%>
             </div>
-            <div class="col-md-6 column">
+
+            <div class="col-md-3 column">
                 <a class="btn btn-primary" style="display: inline-block;text-align: center" href="/booking/booking_message">确认预订</a>
                 <%--<button type="button" class="btn btn-default btn-primary">按钮</button>--%>
             </div>
+            <div class="col-lg-3 column"></div>
         </div>
         <div class="col-md-2 column">
         </div>

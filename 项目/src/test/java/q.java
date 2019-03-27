@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 public class q {
     @Test
     public void a() throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        String a="password7";
+        String a="password1";
         System.out.println(Utils.EncoderByMd5(a));
     }
 }
