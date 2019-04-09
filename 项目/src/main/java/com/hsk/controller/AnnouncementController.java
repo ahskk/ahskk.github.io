@@ -25,7 +25,7 @@ public class AnnouncementController {
     public String doAnnouncement_manage(Model model) throws SQLException {
         java.util.Map queryMap = new HashMap();
         List<Announcement> list = asi.findByProp(queryMap);
-        System.out.println(list);
+        System.out.println("list:\n"+list);
         java.util.Map map = new HashMap();
         map.put("success",true);
         map.put("data",list);

@@ -57,7 +57,8 @@
 <div class="header">
     <div class="container">
         <div class="header-left">
-            <a>公共运动场地预订系统</a>        </div>
+            <a>公共运动场地预订系统</a>
+        </div>
         <div class="header-left1">
             <p></p>
         </div>
@@ -100,7 +101,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${requestScope.pagemsg.lists}" var="a">
+    <c:forEach items="${content.data}" var="a">
         <%--<c:forEach items="${pageinfo.list}" var="d">--%>
         <tr>
             <td>${a.announcement_id}</td>
@@ -122,25 +123,25 @@
     </tbody>
 </table>
 
-<table border="0" cellspacing="0" cellpadding="0" width="900px">
-    <tr>
-        <td class="td2">
-            <span>第${requestScope.pagemsg.currPage }/ ${requestScope.pagemsg.totalPage}页</span>
-            <span>总记录数：${requestScope.pagemsg.totalCount }  每页显示:${requestScope.pagemsg.pageSize}</span>
-            <span>
-                <c:if test="${requestScope.pagemsg.currPage != 1}">
-                    <a href="${pageContext.request.contextPath }/user/manage?currentPage=1">[首页]</a>
-                    <a href="${pageContext.request.contextPath }/user/manage?currentPage=${requestScope.pagemsg.currPage-1}">[上一页]</a>
-                </c:if>
+<%--<table border="0" cellspacing="0" cellpadding="0" width="900px">--%>
+    <%--<tr>--%>
+        <%--<td class="td2">--%>
+            <%--<span>第${requestScope.pagemsg.currPage }/ ${requestScope.pagemsg.totalPage}页</span>--%>
+            <%--<span>总记录数：${requestScope.pagemsg.totalCount }  每页显示:${requestScope.pagemsg.pageSize}</span>--%>
+            <%--<span>--%>
+                <%--<c:if test="${requestScope.pagemsg.currPage != 1}">--%>
+                    <%--<a href="${pageContext.request.contextPath }/user/manage?currentPage=1">[首页]</a>--%>
+                    <%--<a href="${pageContext.request.contextPath }/user/manage?currentPage=${requestScope.pagemsg.currPage-1}">[上一页]</a>--%>
+                <%--</c:if>--%>
 
-                <c:if test="${requestScope.pagemsg.currPage != requestScope.pagemsg.totalPage}">
-                    <a href="${pageContext.request.contextPath }/user/manage?currentPage=${requestScope.pagemsg.currPage+1}">[下一页]</a>
-                    <a href="${pageContext.request.contextPath }/user/manage?currentPage=${requestScope.pagemsg.totalPage}">[尾页]</a>
-                </c:if>
-            </span>
-        </td>
-    </tr>
-</table>
+                <%--<c:if test="${requestScope.pagemsg.currPage != requestScope.pagemsg.totalPage}">--%>
+                    <%--<a href="${pageContext.request.contextPath }/user/manage?currentPage=${requestScope.pagemsg.currPage+1}">[下一页]</a>--%>
+                    <%--<a href="${pageContext.request.contextPath }/user/manage?currentPage=${requestScope.pagemsg.totalPage}">[尾页]</a>--%>
+                <%--</c:if>--%>
+            <%--</span>--%>
+        <%--</td>--%>
+    <%--</tr>--%>
+<%--</table>--%>
 
 <h3>
     <a href="/announcement/toAnnouncement_add" class="label label-success label-lg">添加</a>
